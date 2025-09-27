@@ -1,0 +1,224 @@
+/* =============================
+   الأساسيات
+============================= */
+/* استدعاء الخطوط من Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Cairo', 'Poppins', sans-serif; /* الأولوية للعربية */
+  background: linear-gradient(135deg, #040404, #121212);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden; /* يمنع ظهور شريط تمرير أفقي */
+}
+
+/* العناوين */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* النصوص العادية */
+p, span, a, button {
+  font-family: 'Cairo', 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+/* =============================
+   الشريط الجانبي (Sidebar)
+============================= */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background: #1e1e1e;
+  box-shadow: -2px 0 6px rgba(0,0,0,0.5);
+  padding: 60px 20px;
+  transition: transform 0.3s ease;
+  transform: translateX(100%); /* مخفية بالكامل */
+  z-index: 999;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* تظهر عند الضغط */
+}
+
+.sidebar .login-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #EE1818;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sidebar .login-btn:hover {
+  background: #C31414;
+}
+
+/* =============================
+   زر القائمة (هومبرغر)
+============================= */
+.menu-btn {
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  z-index: 1000;
+}
+
+/* =============================
+   الرأس (Header)
+============================= */
+header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(90deg, #121212,#380101, #EE1818);
+  padding: 10px;
+  z-index: 900;
+}
+
+.top-bar { display: flex; align-items: center; gap: 10px; }
+
+
+/* البحث */
+.search {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+#search {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+}
+
+/* التصنيفات */
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.category-link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 15px;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.category-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #EE1818;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.category-link:hover::after,
+.category-link.active::after {
+  transform: scaleX(1);
+}
+
+/* =============================
+   شبكة المنتجات (Products Grid)
+============================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+/* البطاقات */
+.card {
+  background: #1e1e1e;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* عند المرور بالماوس */
+.card:hover {
+  transform: translateY(-5px); /* ارتفاع خفيف */
+  box-shadow: 0 0 20px rgba(195, 20, 20, 0.7); /* توهج أحمر داكن */
+}
+
+/* عند الضغط */
+.card:active {
+  transform: scale(0.97); /* انكماش بسيط */
+  box-shadow: 0 0 25px rgba(195, 20, 20, 0.9); /* توهج أقوى */
+}
+
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img.thumb {
+  width: 100%;
+  height:  200px;
+  object-fit: cover;
+}
+
+.card .meta {
+  padding: 5px;
+}
+
+.card .title {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #fff; /* باش يبان التوهج */
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.825); /* توهج أبيض خفيف */
+}
+
+
+.card .desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #ccc;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;   /* يخليه سطر واحد فقط */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* يضيف ... */
+  white-space: normal;     /* يسمح بتقسيم الكلمة لو طويلة */
+}
+
+
+
+.card .price {
+  color: #08bd17cc;
+  
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+ .card .category {
+  font-size: 12px;
+  color: #aaa;
+}

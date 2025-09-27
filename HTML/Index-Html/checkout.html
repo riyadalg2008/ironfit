@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>إتمام الشراء</title>
+  <link rel="stylesheet" href="../../CSS/checkout.css">
+</head>
+<body>
+  <h1>إتمام عملية الشراء</h1>
+
+  <!-- بطاقة المنتج -->
+  <div id="productInfo">
+    <p>⏳ تحميل بيانات المنتج...</p>
+  </div>
+
+  <!-- نموذج إدخال البيانات -->
+  <form id="orderForm">
+    <fieldset>
+      <legend>معلوماتك الشخصية</legend>
+      <label>اسمك الكامل:</label>
+      <input type="text" name="customer_name" required>
+
+      <label>البريد الإلكتروني:</label>
+      <input type="email" name="customer_email" required>
+
+      <label>رقم الهاتف:</label>
+      <input type="tel" name="customer_phone" required>
+
+      <label>العنوان الكامل:</label>
+      <textarea name="customer_address" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>تفاصيل الطلب</legend>
+      <label>الكمية:</label>
+      <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+    </fieldset>
+
+    <!-- 👇 السعر الإجمالي قبل زر الشراء -->
+    <p id="totalPrice">السعر الإجمالي: 0 دج</p>
+
+    <button type="submit">تأكيد الطلب</button>
+  </form>
+
+  <div id="message"></div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    const productInfo = document.getElementById('productInfo');
+    const form = document.getElementById('orderForm');
+    const message = document.getElementById('message');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const quantityInput = document.getElementById('quantity');
+    let currentProduct = null;
+
+    // جلب بيانات المنتج
+    async function loadProduct() {
+      try {
+        const res = await fetch(`/products/${productId}`);
+        if (!res.ok) throw new Error("فشل جلب المنتج");
+        const product = await res.json();
+        currentProduct = product;
+
+        productInfo.innerHTML = `
+          <h2>${product.name}</h2>
+          <p>${product.description}</p>
+          <p><strong>السعر الفردي:</strong> ${product.price} دج</p>
+        `;
+
+        updateTotal(); // حساب أولي للسعر
+      } catch (err) {
+        console.error(err);
+        productInfo.innerHTML = "<p>❌ خطأ في تحميل بيانات المنتج</p>";
+      }
+    }
+    loadProduct();
+
+    // تحديث السعر الإجمالي عند تغيير الكمية
+    function updateTotal() {
+      if (!currentProduct) return;
+      const qty = parseInt(quantityInput.value) || 1;
+      const total = qty * currentProduct.price;
+      totalPriceEl.textContent = `السعر الإجمالي: ${total} DA`;
+    }
+    quantityInput.addEventListener("input", updateTotal);
+
+    // إرسال الطلب
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!currentProduct) {
+        message.textContent = "⚠ لا يمكن إتمام الطلب، المنتج غير محمل.";
+        message.className = "error";
+        return;
+      }
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      data.product_id = productId;
+      data.product_price = currentProduct.price;
+      data.total_price = parseInt(quantityInput.value) * currentProduct.price;
+
+      const res = await fetch('/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        message.textContent = '✅ تم تسجيل الطلب بنجاح';
+        message.className = "success";
+        form.reset();
+        updateTotal();
+      } else {
+        message.textContent = '❌ خطأ: ' + (result.error || 'مشكلة في السيرفر');
+        message.className = "error";
+      }
+    });
+  </script>
+</body>
+</html>

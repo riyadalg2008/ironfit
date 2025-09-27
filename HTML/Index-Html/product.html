@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>تفاصيل المنتج</title>
+  <link rel="stylesheet" href="../../CSS/product.css">
+</head>
+<body>
+  <header>
+    <a href="index.html">⬅ رجوع للمنتجات</a>
+  </header>
+
+  <main id="productDetails">
+    <p>جارٍ تحميل المنتج...</p>
+  </main>
+
+  <script>
+    // جلب ID من الرابط
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    const details = document.getElementById("productDetails");
+
+    async function fetchProduct() {
+      try {
+        const res = await fetch("/products");
+        if (!res.ok) throw new Error("فشل الاتصال");
+        const data = await res.json();
+        const product = data.find(p => String(p.id) === id);
+
+        if (!product) {
+          details.innerHTML = "<p>❌ المنتج غير موجود</p>";
+          return;
+        }
+
+        details.innerHTML = `
+          <h1>${product.name}</h1>
+          <img src="${product.image || 'https://via.placeholder.com/400x300?text=No+Image'}" 
+               alt="${product.name}" 
+               style="max-width:100%;border-radius:10px;">
+          <p><strong>الوصف:</strong> ${product.description}</p>
+          <p><strong>السعر:</strong> ${product.price} DA</p>
+          <button onclick="goCheckout(${product.id})">اشتري الآن</button>
+        `;
+      } catch (err) {
+        console.error(err);
+        details.innerHTML = "<p>⚠ خطأ في تحميل المنتج</p>";
+      }
+    }
+
+    function goCheckout(pid) {
+      // 👈 يحول المستخدم لصفحة الشراء
+      window.location.href = `checkout.html?id=${pid}`;
+    }
+
+    fetchProduct();
+  </script>
+</body>
+</html>

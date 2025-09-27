@@ -1,0 +1,76 @@
+/* ===== الخطوط والألوان ===== */
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap');
+
+:root {
+  --color-bg: #0b0c10;          /* خلفية داكنة جداً */
+  --color-card: #1f2833;        /* لون الأزرار والمربعات */
+  --color-accent: #66fcf1;      /* لون مميز للأزرار والنصوص */
+  --color-accent-hover: #45a29e; 
+  --color-text: #c5c6c7;        /* لون النصوص */
+  --color-text-dark: #ffffff;    /* لون العناوين */
+  --radius: 15px;
+  --transition: 0.3s ease;
+}
+
+/* ===== عام ===== */
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: 'Almarai', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ===== العنوان ===== */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  color: var(--color-accent);
+  text-align: center;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* ===== لوحة الأزرار ===== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.dashboard a {
+  text-decoration: none;
+}
+
+.dashboard button {
+  width: 100%;
+  padding: 18px 20px;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  background: var(--color-card);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.dashboard button:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* ===== تناسب الهواتف ===== */
+@media (max-width: 500px) {
+  h1 { font-size: 2em; margin-bottom: 30px; }
+  .dashboard button { font-size: 1.1em; padding: 14px; }
+}

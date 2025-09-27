@@ -1,0 +1,91 @@
+/* ===== خطوط واضحة وعصرية ===== */
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Almarai', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a, #1c1c1c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+/* ===== نموذج تسجيل الدخول ===== */
+form {
+  background: #1e1e1e;
+  border: 1px solid #ff3333;
+  border-radius: 12px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* العنوان */
+form h1 {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #ff3333;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ===== الحقول ===== */
+form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+form input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #121212;
+  color: #fff;
+  font-size: 1em;
+}
+
+form input:focus {
+  border-color: #ff3333;
+  outline: none;
+}
+
+/* ===== زر الدخول ===== */
+form button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ff3333;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #cc0000;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  form {
+    padding: 30px 20px;
+  }
+  form h1 {
+    font-size: 1.5em;
+  }
+  form button {
+    font-size: 1em;
+  }
+}

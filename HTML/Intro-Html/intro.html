@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- للإنجليزية -->
+<!-- Playfair Display -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+
+<!-- للعربية -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../CSS/intro.css">
+</head>
+<body>
+     <div class="glass-box"> 
+    <h1>Welcome in IronFit <h1> 
+
+        <h2>اهدافكم تتطلب اعلى معايير الجودة, ونحن هنا لتقديمها, جودة امان وموثوقية استمتع برحله التسوق لا مثيل لها</h2>
+        
+        
+
+   <a href="../Index-Html/index.html">
+  <button>Shop Now 🛒</button>
+    
+    </a>
+     </div>
+    
+     <script>
+  const box = document.querySelector('.glass-box');
+  const btn = document.getElementById('shopBtn');
+  const h1 = box.querySelector('h1');
+  const h2 = box.querySelector('h2');
+
+  btn.addEventListener('click', function(e) {
+    e.preventDefault(); // منع الانتقال الفوري
+
+    // إضافة كلاس الاختفاء للعناصر
+    box.style.animation = "fadeOutBox 0.7s forwards";
+    h1.style.animation = "fadeOutText 0.7s forwards";
+    h2.style.animation = "fadeOutText 0.7s forwards";
+    btn.style.animation = "slideUpButton 0.7s forwards";
+
+    // بعد انتهاء الحركة، انتقل للصفحة
+    setTimeout(() => {
+      window.location.href = "../Index-Html/index.html";
+    }, 700); // نفس مدة الأنيميشن
+  });
+</script>
+
+</body>
+</html>

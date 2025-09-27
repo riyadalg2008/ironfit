@@ -1,0 +1,130 @@
+/* ===== الخطوط والألوان ===== */
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap');
+
+body {
+  font-family: 'Almarai', sans-serif;
+  background: #121212;
+  color: #fff;
+  margin: 20px;
+}
+
+/* ===== العنوان ===== */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #e94545;
+  font-size: 2.2em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* ===== حقل البحث ===== */
+#searchInput {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px auto;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: 16px;
+}
+
+/* ===== الجدول ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+th {
+  background: #e94545;
+  color: #fff;
+  font-weight: 700;
+}
+
+td {
+  border-bottom: 1px solid #333;
+  color: #fff;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== الحالات ===== */
+.confirmed {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.pending {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+/* ===== أزرار ===== */
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #e94545;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #ff5e5e;
+}
+
+/* ===== تجاوب الهواتف ===== */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead tr {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 15px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    padding: 10px;
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border: none;
+    font-size: 13px;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #ffc;
+    text-align: right;
+    flex: 1;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 8px;
+  }
+}

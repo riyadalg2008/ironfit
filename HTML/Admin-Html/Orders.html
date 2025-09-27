@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>لوحة الإدارة - الطلبات</title>
+  <link rel="stylesheet" href="../../CSS/Admin-Css/Orders.css">
+  <style>
+    button {
+      padding: 5px 10px;
+      margin: 2px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button.confirm { background-color: #4CAF50; color: white; }
+    button.delete { background-color: #f44336; color: white; }
+  </style>
+</head>
+<body>
+  <h1>📋 إدارة الطلبات</h1>
+
+  <input type="text" id="searchInput" placeholder="ابحث باسم الزبون، اسم المنتج أو رقم الهاتف">
+
+  <table>
+    <thead>
+      <tr>
+        <th>رقم الطلب</th>
+        <th>اسم الزبون</th>
+        <th>📧 الإيميل</th>
+        <th>📞 الهاتف</th>
+        <th>🏠 العنوان</th>
+        <th>🛒 اسم المنتوج</th>
+        <th>💲 سعر الوحدة</th>
+        <th>📦 الكمية</th>
+        <th>💰 السعر الإجمالي</th>
+        <th>🗓️ التاريخ</th>
+        <th>الحالة</th>
+        <th>إجراءات</th>
+      </tr>
+    </thead>
+    <tbody id="ordersTable">
+      <tr><td colspan="12">جارٍ تحميل الطلبات...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    const ordersTable = document.getElementById("ordersTable");
+    const searchInput = document.getElementById("searchInput");
+    let allOrders = [];
+
+    async function loadOrders() {
+      try {
+        const res = await fetch("/orders");
+        if (!res.ok) throw new Error("فشل جلب الطلبات");
+        allOrders = await res.json();
+        displayOrders(allOrders);
+      } catch (err) {
+        console.error(err);
+        ordersTable.innerHTML = "<tr><td colspan='12'>⚠ خطأ في تحميل الطلبات</td></tr>";
+      }
+    }
+
+    function displayOrders(orders) {
+      if (!orders.length) {
+        ordersTable.innerHTML = "<tr><td colspan='12'>لا توجد طلبات</td></tr>";
+        return;
+      }
+
+      ordersTable.innerHTML = "";
+      orders.forEach(order => {
+        const tr = document.createElement("tr");
+const date = new Date(order.created_at).toLocaleString('en-GB', {
+  year: 'numeric', month: '2-digit', day: '2-digit',
+  hour: '2-digit', minute: '2-digit'
+});
+
+        tr.innerHTML = `
+          <td data-label="رقم الطلب">${order.id}</td>
+          <td data-label="اسم الزبون">${order.customer_name}</td>
+          <td data-label="الإيميل">${order.customer_email || '-'}</td>
+          <td data-label="الهاتف">${order.customer_phone}</td>
+          <td data-label="العنوان">${order.customer_address}</td>
+          <td data-label="اسم المنتوج">${order.product_name}</td>
+          <td data-label="سعر الوحدة">${order.product_price} دج</td>
+          <td data-label="الكمية">${order.quantity || 1}</td>
+          <td data-label="السعر الإجمالي">${order.total_price} دج</td>
+          <td data-label="التاريخ">${date}</td>
+          <td data-label="الحالة" class="${order.status === 'confirmed' ? 'confirmed' : 'pending'}">
+            ${order.status === 'confirmed' ? '✅ مؤكد' : '⏳ قيد الانتظار'}
+          </td>
+          <td data-label="إجراءات">
+            ${order.status === 'confirmed' 
+              ? `<button class="delete" onclick="deleteOrder(${order.id})">حذف</button>` 
+              : `<button class="confirm" onclick="confirmOrder(${order.id})">تأكيد</button>
+                 <button class="delete" onclick="deleteOrder(${order.id})">حذف</button>`}
+          </td>
+        `;
+        ordersTable.appendChild(tr);
+      });
+    }
+
+    async function confirmOrder(orderId) {
+      try {
+        const res = await fetch(`/orders/${orderId}/confirm`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" }
+        });
+        if (!res.ok) throw new Error("فشل تأكيد الطلب");
+        await loadOrders();
+        alert("✅ تم تأكيد الطلب بنجاح");
+      } catch (err) {
+        alert("❌ خطأ في تأكيد الطلب");
+        console.error(err);
+      }
+    }
+
+    async function deleteOrder(orderId) {
+      if (!confirm("⚠️ هل أنت متأكد أنك تريد حذف هذا الطلب؟")) return;
+
+      try {
+        const res = await fetch(`/orders/${orderId}`, {
+          method: "DELETE"
+        });
+        if (!res.ok) throw new Error("فشل حذف الطلب");
+        await loadOrders();
+        alert("🗑️ تم حذف الطلب بنجاح");
+      } catch (err) {
+        alert("❌ خطأ في حذف الطلب");
+        console.error(err);
+      }
+    }
+
+    // فلترة الطلبات حسب الاسم، المنتج أو الهاتف
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      const filtered = allOrders.filter(order =>
+        order.customer_name.toLowerCase().includes(query) ||
+        order.product_name.toLowerCase().includes(query) ||
+        (order.customer_phone && order.customer_phone.includes(query))
+      );
+      displayOrders(filtered);
+    });
+
+    loadOrders();
+  </script>
+</body>
+</html>
+

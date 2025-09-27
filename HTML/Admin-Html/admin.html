@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة الإدارة</title>
+<style>
+/* ===== الخطوط والألوان ===== */
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap');
+
+:root {
+  --bg-gradient: linear-gradient(135deg, #1c1c1c, #2c2c2c); /* خلفية متدرجة */
+  --btn-gradient: linear-gradient(45deg, #ff4b5c, #ff0000); /* أزرار حمراء جذابة */
+  --btn-hover: linear-gradient(45deg, #ff1a1a, #cc0000);
+  --text-light: #f5f5f5;
+  --text-dark: #ffffff;
+  --radius: 12px;
+  --transition: 0.3s ease;
+  --shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* ===== عام ===== */
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: 'Almarai', sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ===== العنوان ===== */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 50px;
+  color: var(--text-dark);
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+/* ===== لوحة الأزرار ===== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.dashboard a { text-decoration: none; }
+
+.dashboard button {
+  width: 100%;
+  padding: 20px 0;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: var(--text-dark);
+  background: var(--btn-gradient);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow);
+  letter-spacing: 0.5px;
+}
+
+.dashboard button:hover {
+  background: var(--btn-hover);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+
+/* ===== تناسب الهواتف ===== */
+@media (max-width: 500px) {
+  h1 { font-size: 2em; margin-bottom: 35px; }
+  .dashboard button { font-size: 1.2em; padding: 16px 0; }
+}
+</style>
+</head>
+<body>
+
+<h1>مرحبا Admin</h1>
+
+<div class="dashboard">
+  <a href="../Admin-Html/admin-products.html">
+    <button>📦 قائمة المنتجات</button>
+  </a>
+
+  <a href="../Admin-Html/Orders.html">
+    <button>🛒 قائمة الطلبات</button>
+  </a>
+</div>
+
+</body>
+</html>

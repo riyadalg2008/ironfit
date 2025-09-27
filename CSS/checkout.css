@@ -1,0 +1,249 @@
+/*
+ * checkout_v3.css
+ * تصميم دفع داكن وبسيط (Minimalist Dark) - أسود، رمادي، وأحمر
+ */
+
+/* ====================================
+   الخطوط: Arabic (Cairo) + Latin (Poppins)
+   ==================================== */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap');
+
+/* ====================================
+   المتغيرات (Variables)
+   ==================================== */
+:root {
+  /* ألوان الخلفية والنصوص */
+  --color-bg-main: #0a0a0a;   /* أسود عميق للخلفية */
+  --color-bg-card: #161616;   /* رمادي داكن للبطاقات */
+  --color-bg-input: #1f1f1f;  /* رمادي أغمق لحقول الإدخال */
+  --color-text-light: #f5f5f5; /* نص فاتح للمحتوى الرئيسي */
+  --color-text-muted: #999999; /* نص رمادي خافت للملاحظات/التسميات */
+  
+  /* ألوان التمييز والتفاعل (الأحمر) */
+  --color-accent: #E50914;    /* أحمر ناري قوي (مثل Netflix) */
+  --color-accent-hover: #C60711; /* أحمر أغمق للتفاعل */
+  
+  /* الأبعاد والجماليات */
+  --radius: 8px;              /* نصف قطر موحد وبسيط */
+  --spacing-unit: 16px;       /* وحدة قياس أساسية للتباعد */
+  --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ====================================
+   قاعدة الصفحة (Base Styles)
+   ==================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Cairo', 'Poppins', system-ui, sans-serif;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-light);
+  padding: calc(2 * var(--spacing-unit)); /* 32px */
+}
+
+/* ====================================
+   عنوان الصفحة والروابط
+   ==================================== */
+h1 {
+  text-align: center;
+  margin-bottom: calc(2 * var(--spacing-unit));
+  font-size: 1.8rem;
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+/* ====================================
+   الحاويات الرئيسية (Layout)
+   ==================================== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: calc(2 * var(--spacing-unit));
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+/* ====================================
+   بطاقة المنتج (Product Info)
+   ==================================== */
+#productInfo {
+  background-color: var(--color-bg-card);
+  padding: calc(1.5 * var(--spacing-unit)); /* 24px */
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-subtle);
+  text-align: center;
+}
+
+#productInfo h2 {
+  margin: 0 0 calc(0.5 * var(--spacing-unit));
+  font-size: 1.4rem;
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+#productInfo p {
+  margin: calc(0.5 * var(--spacing-unit)) 0;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+#productInfo .unit-price {
+  color: var(--color-accent);
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-top: var(--spacing-unit);
+}
+
+/* السعر الإجمالي (Total Price) - تصميم مميز */
+#totalPrice {
+  text-align: center;
+  font-weight: 800;
+  color: var(--color-text-light);
+  background-color: var(--color-bg-main);
+  border-top: 2px solid var(--color-accent); /* خط أحمر للتأكيد */
+  padding: var(--spacing-unit);
+  font-size: 1.25rem;
+  margin-top: calc(1.5 * var(--spacing-unit));
+  border-radius: 0 0 var(--radius) var(--radius);
+  box-shadow: 0 -2px 10px rgba(229, 9, 20, 0.2);
+}
+
+/* ====================================
+   استمارة الطلب (Order Form)
+   ==================================== */
+form#orderForm {
+  background-color: var(--color-bg-card);
+  padding: calc(2 * var(--spacing-unit));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* تجميع الحقول (Fieldset) - تصميم خالي من الحدود */
+fieldset {
+  border: none; /* إزالة الحدود */
+  padding: 0;
+  margin-bottom: calc(1.5 * var(--spacing-unit));
+}
+
+legend {
+  padding: 0;
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-unit);
+}
+
+/* تسميات الحقول (Labels) */
+label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: calc(1 * var(--spacing-unit)) 0 calc(0.5 * var(--spacing-unit));
+  font-weight: 400;
+}
+
+/* حقول الإدخال (Inputs) - تصميم بسيط وداكن */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: calc(0.75 * var(--spacing-unit)) var(--spacing-unit); /* 12px 16px */
+  border-radius: var(--radius);
+  border: 1px solid transparent; /* حد افتراضي شفاف */
+  background-color: var(--color-bg-input);
+  color: var(--color-text-light);
+  font-size: 1rem;
+  resize: vertical;
+  transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-accent); /* حد أحمر عند التركيز */
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
+  background-color: #242424; /* تغيير بسيط للخلفية عند التركيز */
+}
+
+/* زر التأكيد (Submit Button) */
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  margin-top: calc(2 * var(--spacing-unit));
+  padding: var(--spacing-unit);
+  border-radius: var(--radius);
+  border: none;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  background-color: var(--color-accent);
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(229, 9, 20, 0.5);
+}
+
+/* الرسائل */
+#message {
+  margin-top: var(--spacing-unit);
+  text-align: center;
+  font-weight: 600;
+}
+#message.success {
+  color: #4CAF50; /* أخضر قياسي */
+}
+#message.error {
+  color: #F44336; /* أحمر قياسي */
+}
+
+/* ====================================
+   تخطيط سطح المكتب (Desktop Layout)
+   ==================================== */
+@media (min-width: 800px) {
+  .container {
+    grid-template-columns: 1fr 400px; /* نموذج الطلب | المنتج */
+  }
+
+  /* قلب ترتيب الأعمدة لتبدو المعلومات أولاً على اليسار في RTL */
+  .container > #productInfo {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .container > form#orderForm {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  #productInfo {
+    padding: calc(2 * var(--spacing-unit)); /* 32px */
+    text-align: left;
+    position: sticky; /* تثبيت بطاقة المنتج */
+    top: calc(2 * var(--spacing-unit));
+  }
+  
+  #totalPrice {
+    text-align: left;
+    margin-top: calc(2 * var(--spacing-unit));
+    border-radius: var(--radius);
+    background-color: var(--color-bg-main);
+  }
+}
