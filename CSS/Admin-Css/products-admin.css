@@ -1,21 +1,20 @@
 /*
   ===================================================================
-  1. الإعدادات الأساسية والخطوط)
+  1. الإعدادات الأساسية والخطوط
   ===================================================================
 */
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap');
 
 :root {
-    /* الألوان الجديدة: الأزرق والأخضر (Teal/Cyan) */
-    --color-bg-main: #1e1e2d;          /* خلفية عميقة وأكثر هدوءاً */
-    --color-surface-card: #27293d;     /* خلفية البطاقات والأجزاء البارزة */
-    --color-accent-teal: #00bcd4;      /* لون التفاعل الأساسي (أزرق فيروزي) */
-    --color-text-light: #ffffff;       /* نص أساسي أبيض نقي */
-    --color-text-subtle: #b3b3c8;      /* نص ثانوي ورمادي هادئ */
-    --color-border-dark: #373a50;      /* حدود داكنة ناعمة */
-    --color-hover: #3b3e5c;            /* لون التحويم على العناصر الداكنة */
-    --color-danger: #ff5722;           /* لون الخطر (برتقالي محمر) */
-    --color-success: #4caf50;          /* لون النجاح (أخضر هادئ) */
+    --color-bg-main: #1e1e2d;
+    --color-surface-card: #27293d;
+    --color-accent-teal: #00bcd4;
+    --color-text-light: #ffffff;
+    --color-text-subtle: #b3b3c8;
+    --color-border-dark: #373a50;
+    --color-hover: #3b3e5c;
+    --color-danger: #ff5722;
+    --color-success: #4caf50;
 }
 
 * {
@@ -33,6 +32,11 @@ body {
     line-height: 1.5;
 }
 
+/* انتقال افتراضي موحد */
+a, button, input, textarea, select {
+    transition: all 0.25s ease;
+}
+
 h1 {
     color: var(--color-accent-teal);
     margin-bottom: 25px;
@@ -42,7 +46,7 @@ h1 {
 
 /*
   ===================================================================
-  2. عناصر التفاعل الأساسية (الأزرار، المدخلات)
+  2. عناصر التفاعل
   ===================================================================
 */
 input, textarea, select, button {
@@ -52,16 +56,14 @@ input, textarea, select, button {
     font-size: 1em;
     color: var(--color-text-light);
     background-color: var(--color-surface-card);
-    transition: all 0.2s ease;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus-visible, textarea:focus-visible, select:focus-visible {
     border-color: var(--color-accent-teal);
     box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.4);
     outline: none;
 }
 
-/* زر أساسي (Primary Actions) */
 button.primary {
     background-color: var(--color-accent-teal);
     color: var(--color-bg-main);
@@ -69,11 +71,10 @@ button.primary {
     font-weight: 700;
 }
 button.primary:hover {
-    background-color: #00a4bd; /* تدرج لوني أغمق عند التحويم */
+    background-color: #00a4bd;
     transform: translateY(-1px);
 }
 
-/* أزرار الإجراءات (Actions) */
 button.danger, button.edit {
     font-size: 0.85em;
     padding: 7px 10px;
@@ -87,14 +88,13 @@ button.danger {
 button.danger:hover { background-color: #d1461f; }
 
 button.edit {
-    background-color: #6a1b9a; /* لون أرجواني للتعديل لتمييزه */
+    background-color: #6a1b9a;
 }
 button.edit:hover { background-color: #55147c; }
 
-
 /*
   ===================================================================
-  3. أزرار التنقل (Navigation Tabs) - تصميم نظيف
+  3. أزرار التنقل
   ===================================================================
 */
 .nav {
@@ -117,8 +117,7 @@ button.edit:hover { background-color: #55147c; }
 
 .nav button.active {
     color: var(--color-accent-teal);
-    border-bottom: 3px solid var(--color-accent-teal); /* تمييز بالخط السفلي */
-    background-color: transparent;
+    border-bottom: 3px solid var(--color-accent-teal);
 }
 .nav button:hover:not(.active) {
     color: var(--color-text-light);
@@ -129,31 +128,27 @@ section.active { display: block; }
 
 /*
   ===================================================================
-  4. شبكة المنتجات (Products Grid/Cards) - 3 منتجات في السطر
+  4. شبكة المنتجات
   ===================================================================
 */
 .grid {
     display: grid;
     gap: 20px;
-    /* التنسيق الافتراضي للهواتف الصغيرة جداً (عمود واحد) */
     grid-template-columns: 1fr;
     margin-top: 15px;
 }
 
-/* الشاشات المتوسطة (الأجهزة اللوحية/الهواتف الكبيرة): عمودان */
 @media (min-width: 600px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* الشاشات الكبيرة (الديسكتوب): ثلاثة أعمدة */
 @media (min-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr); /* 3 منتجات في السطر */
-    }
+    .grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+@media (min-width: 1440px) {
+    .grid { grid-template-columns: repeat(4, 1fr); }
+}
 
 .card {
     background-color: var(--color-surface-card);
@@ -162,7 +157,6 @@ section.active { display: block; }
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
-    transition: box-shadow 0.3s, transform 0.3s;
     border: 1px solid var(--color-border-dark);
 }
 .card:hover { 
@@ -172,7 +166,7 @@ section.active { display: block; }
 
 .thumb {
     width: 100%;
-    height: 160px; /* ارتفاع قياسي للصورة */
+    aspect-ratio: 4/3;
     object-fit: cover;
     border-radius: 6px;
     background-color: var(--color-hover);
@@ -182,7 +176,6 @@ section.active { display: block; }
 .meta h3 {
     margin: 0 0 5px;
     font-size: 1.1em;
-    color: var(--color-text-light);
 }
 .meta p {
     margin: 0 0 5px;
@@ -206,7 +199,7 @@ section.active { display: block; }
 
 /*
   ===================================================================
-  5. قائمة التصنيفات (Categories List) والنماذج
+  5. التصنيفات
   ===================================================================
 */
 .cat-list {
@@ -221,14 +214,13 @@ section.active { display: block; }
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid var(--color-border-dark);
-    color: var(--color-text-light);
 }
 .cat-item:last-child { border-bottom: 0; }
 .cat-actions { display: flex; gap: 8px; }
 
 /*
   ===================================================================
-  6. الرسائل والتنبيهات (Messages) والنافذة المنبثقة (Modal)
+  6. الرسائل والتنبيهات + النافذة المنبثقة
   ===================================================================
 */
 .msg {
@@ -237,16 +229,17 @@ section.active { display: block; }
     border-radius: 6px;
     display: none;
     font-weight: 700;
+    animation: fadeIn 0.4s ease;
 }
 .msg.ok {
     background-color: var(--color-success);
     color: var(--color-text-light);
-    border-left: 5px solid #d4e157;
+    border-right: 5px solid #81c784;
 }
 .msg.err {
     background-color: var(--color-danger);
     color: var(--color-text-light);
-    border-left: 5px solid #ffab91;
+    border-right: 5px solid #ffab91;
 }
 
 .modal {
@@ -256,6 +249,7 @@ section.active { display: block; }
     place-items: center;
     background: rgba(0, 0, 0, 0.7);
     z-index: 100;
+    animation: fadeIn 0.3s ease;
 }
 .modal.open { display: grid; }
 
@@ -279,4 +273,10 @@ section.active { display: block; }
     color: var(--color-text-subtle);
     margin-bottom: 8px;
     display: block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
