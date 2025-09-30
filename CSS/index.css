@@ -61,8 +61,36 @@ p, span, a, button {
 }
 
 .sidebar .login-btn:hover {
-  background: #C31414;
+  background: #c31414;
 }
+
+.sidebar button {
+  margin-bottom: 15px;  /* 🔥 يخلي مسافة أسفل كل زر */
+}
+
+.sidebar button:last-child {
+  margin-bottom: 0; /* ما يكونش فراغ تحت آخر زر */
+}
+
+
+
+.sidebar .help {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #353434;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sidebar .login-btn:hover {
+  background: #c31414;
+}
+
 
 /* =============================
    زر القائمة (هومبرغر)
