@@ -19,7 +19,6 @@
     // جلب ID من الرابط
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
-
     const details = document.getElementById("productDetails");
 
     async function fetchProduct() {
@@ -37,12 +36,23 @@
         details.innerHTML = `
           <h1>${product.name}</h1>
           <img src="${product.image || 'https://via.placeholder.com/400x300?text=No+Image'}" 
-               alt="${product.name}" 
-               style="max-width:100%;border-radius:10px;">
-          <p><strong>الوصف:</strong> ${product.description}</p>
-          <p><strong>السعر:</strong> ${product.price} DA</p>
+               alt="${product.name}">
+          <p class="description" id="desc">${product.description}</p>
+          <span class="read-more" id="toggleDesc">عرض المزيد</span>
+          <p class="price">${product.price} DA</p>
           <button onclick="goCheckout(${product.id})">اشتري الآن</button>
         `;
+
+        // منطق عرض المزيد / إخفاء
+        const desc = document.getElementById("desc");
+        const toggle = document.getElementById("toggleDesc");
+
+        toggle.addEventListener("click", () => {
+          desc.classList.toggle("expanded");
+          toggle.textContent = desc.classList.contains("expanded") 
+            ? "عرض أقل" 
+            : "عرض المزيد";
+        });
       } catch (err) {
         console.error(err);
         details.innerHTML = "<p>⚠ خطأ في تحميل المنتج</p>";
@@ -50,7 +60,6 @@
     }
 
     function goCheckout(pid) {
-      // 👈 يحول المستخدم لصفحة الشراء
       window.location.href = `checkout.html?id=${pid}`;
     }
 
