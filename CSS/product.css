@@ -96,9 +96,9 @@ header a:hover { color: var(--color-accent); }
 #productDetails .price {
   font-size: 1.8em;
   font-weight: 900;
-  color: var(--color-accent);
+  
   margin-bottom: 12px;
-  text-shadow: 0 0 10px rgba(229,9,20,0.4);
+  
 }
 
 /* زر */
@@ -155,4 +155,38 @@ header a:hover { color: var(--color-accent); }
     padding: 16px;
     max-width: 250px;
   }
+}
+
+
+/* ===== الوصف مع عرض المزيد ===== */
+.description {
+  color: var(--color-text-muted);
+  font-size: 1em;
+  margin: 6px 0 14px 0;
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 👈 عرض 3 أسطر فقط */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* عندما يفتح الوصف بالكامل */
+.description.expanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+/* زر عرض المزيد */
+.read-more {
+  color: var(--color-accent);
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-block;
+  margin-top: 5px;
+ color: rgb(255, 255, 255);;
+}
+.read-more:hover {
+  color:#999
 }
